@@ -76,8 +76,12 @@
             },
         },
         created(){
-            axios.get('/getMovies').then(res=>{
-            this.notas = res.data.data;
+            axios.get('/getMovies')
+            .then(res=>{
+                this.notas = res.data.data;
+            })
+            .catch((error) => {
+                alert("Error al obtener listado. Intente nuevamente");
             })
         },
     }

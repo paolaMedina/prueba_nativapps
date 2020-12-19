@@ -1990,6 +1990,8 @@ __webpack_require__.r(__webpack_exports__);
 
     axios.get('/getMovies').then(function (res) {
       _this.notas = res.data.data;
+    })["catch"](function (error) {
+      alert("Error al obtener listado. Intente nuevamente");
     });
   }
 });
