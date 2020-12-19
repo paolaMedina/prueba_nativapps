@@ -9,30 +9,29 @@ use App\Http\Controllers\MovieController;
 class OMDBController extends Controller
 {
     //
-    public function getMovieCollection($title="love", $year="2020"){
+    public function getMovieCollection($title="love", $year="2020", $type="movie"){
         $movieController =  new MovieController();
         $totalPages = 1;
         $currentPage = 1; 
-        $aux =array();
         do{
-            $patch = config('app.url_OMDB')."/?apikey=".config('app.key_OMDB')."&s=$title&y=$year&page=$currentPage";
+            $patch = config('app.url_OMDB')."/?apikey=".config('app.key_OMDB')."&s=$title&y=$year&type=$type&page=$currentPage";
             $result = file_get_contents($patch);
             $movies = json_decode($result, true);
-            // dd($movies);
             foreach ($movies['Search'] as $movie){
                 $movieController->save($movie);
             }
             if ($totalPages != ceil($movies['totalResults']/10)){
                 $totalPages = ceil($movies['totalResults']/10);
-                // dd($totalPages);
             }
             $currentPage++;
-            array_push($aux, $movies['Search']);
             // var_dump($movies);
         }
         while($currentPage <= $totalPages);
-        dd($aux);
+
+        return redirect('/');
     }
+
+    
 
 
 }
