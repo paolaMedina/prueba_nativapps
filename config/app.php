@@ -123,6 +123,9 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'url_OMDB' => env('URL_OMDB'),
+    'key_OMDB' => env('KEY_OMDB'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

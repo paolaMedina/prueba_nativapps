@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('getMoviesOMDB', 'App\Http\Controllers\OMDBController@getMovieCollection');
+Route::get('getMovies', 'App\Http\Controllers\MovieController@getMovies');
