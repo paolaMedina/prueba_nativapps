@@ -27,5 +27,8 @@ class MovieController extends Controller
         
     }
 
-    
+    public function getMovies(){
+        $movies = Movie::all();
+        return MovieResource::collection($movies);
+    }
 }

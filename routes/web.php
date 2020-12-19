@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('getMoviesOMDB', 'App\Http\Controllers\OMDBController@getMovieCollection');
+Route::get('getMovies', 'App\Http\Controllers\MovieController@getMovies');
