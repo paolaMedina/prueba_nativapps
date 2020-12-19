@@ -1,3 +1,18 @@
+<style>
+button.page-link {
+	display: inline-block;
+}
+button.page-link {
+    font-size: 20px;
+    color: #29b3ed;
+    font-weight: 500;
+}
+.offset{
+  width: 500px !important;
+  margin: 20px auto;  
+}
+</style>
+
 <template>
     <div class="container">
         <div class="row justify-content-center">
@@ -16,7 +31,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in notas">
+                                <tr v-for="item in displayedMovies">
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.year }}</td>
                                     <td>{{ item.type }}</td>
@@ -47,6 +62,7 @@
     </div>
 </template>
 
+
 <script>
     export default {
         mounted() {
@@ -54,7 +70,7 @@
         },
         data() {
             return {
-            notas: [],
+            movies: [],
             page: 1,
             perPage: 9,
             pages: [],  
@@ -62,23 +78,33 @@
         },
         methods:{
             setPages () {
-                let numberOfPages = Math.ceil(this.posts.length / this.perPage);
+                let numberOfPages = Math.ceil(this.movies.length / this.perPage);
                 for (let index = 1; index <= numberOfPages; index++) {
                     this.pages.push(index);
                 }
             },
-            paginate (notas) {
+            paginate (movies) {
                 let page = this.page;
                 let perPage = this.perPage;
                 let from = (page * perPage) - perPage;
                 let to = (page * perPage);
-                return  notas.slice(from, to);
+                return  movies.slice(from, to);
             },
+        },
+        computed: {
+            displayedMovies () {
+                return this.paginate(this.movies);
+            }
+        },
+        watch: {
+            movies () {
+                this.setPages();
+            }
         },
         created(){
             axios.get('/getMovies')
             .then(res=>{
-                this.notas = res.data.data;
+                this.movies = res.data.data;
             })
             .catch((error) => {
                 alert("Error al obtener listado. Intente nuevamente");
