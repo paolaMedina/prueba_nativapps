@@ -15,10 +15,20 @@ button.page-link {
 
 <template>
     <div class="container">
+    
+    <div class="row justify-content-end">
+        <a role="button" href="getMoviesOMDB"  class="btn btn-primary ">Actualizar base de datos con OMDB API</a>
+    </div>
+    <br>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
+                    <div class="card-header">
+                    <h2>Prueba Nativapps</h2>
+                    <p>Listado de peliculas que continen en su titulo la palabra 'love' del año 2020. Obtenidos de la 
+                    <a href="http://www.omdbapi.com/"> OMDB API</a></p>
+                    <p>Desarrolladora :  Angie paola medina cordoba</p>
+                    </div>
 
                     <div class="card-body">
                         <table class="table table-hover table-striped">
@@ -105,6 +115,10 @@ button.page-link {
             axios.get('/getMovies')
             .then(res=>{
                 this.movies = res.data.data;
+                
+                if(this.movies.length == 0){
+                    alert("No hay datos para mostrar, intente actualizar la base de datos con OMDB API");
+                }
             })
             .catch((error) => {
                 alert("Error al obtener listado. Intente nuevamente");
